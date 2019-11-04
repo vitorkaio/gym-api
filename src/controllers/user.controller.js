@@ -1,10 +1,11 @@
 import User from '../models/user.model'
+import Training from '../models/training.model'
 import { cryptPassword } from '../services/services'
 
 // Return all users
 export const getUsers = async () => {
   try {
-    const res = await User.find({})
+    const res = await User.find({}).populate('trainings')
     return res  
   } 
   catch (error) {

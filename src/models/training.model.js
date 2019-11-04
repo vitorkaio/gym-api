@@ -29,8 +29,6 @@ const TrainingSchema = new mongoose.Schema({
   },
   exercises: {
     type: [exerciseSchema], // array de objetos do tipo menuSchema
-    required: false,
-    select: false,
     default: []
   },
   create_data: {

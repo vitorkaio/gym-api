@@ -1,4 +1,5 @@
 type Training {
+  id: ID!
   name: String!
   exercises: [Exercise]
   create_data: String!

@@ -2,10 +2,12 @@ type User {
   username: String!
   perfil: String!
   create_data: String!
+  trainings: [Training]
 }
 
 input UserInput {
 	username: String
 	password: String
   perfil: String
+  trainings: [ID]
 }

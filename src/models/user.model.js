@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose'
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
+    unique: true,
     required: true
   },
   password: {
@@ -16,7 +17,12 @@ const userSchema = new mongoose.Schema({
   perfil: {
     type: String,
     enum: ['adm', 'student'],
-  }
+  },
+  trainings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Training', // Referência a coleção Perfil
+    default: []
+  }]
 })
 
 export default mongoose.model('User', userSchema)
