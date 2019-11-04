@@ -1,0 +1,6 @@
+#import User from 'user.graphql'
+#import Exercise from 'exercise.graphql'
+#import Training from 'training.graphql'
+#import Query from 'query.graphql'
+#import Mutation from 'mutation.graphql'
+#import Subscription from 'subs.graphql'

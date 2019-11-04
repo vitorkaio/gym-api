@@ -1,0 +1,10 @@
+type Training {
+  name: String!
+  exercises: [Exercise]
+  create_data: String!
+}
+
+input TrainingInput {
+	name: String
+  exercises: [ExerciseInput]
+}
