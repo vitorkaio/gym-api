@@ -11,3 +11,7 @@ input UserInput {
   perfil: String
   trainings: [ID]
 }
+
+input UserFilter {
+	id: ID
+}

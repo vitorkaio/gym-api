@@ -9,3 +9,7 @@ input TrainingInput {
 	name: String
   exercises: [ExerciseInput]
 }
+
+input TrainingFilter {
+  id: ID
+}

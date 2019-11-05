@@ -1,4 +1,6 @@
 type Mutation {
   createUser(data: UserInput!): User
+  updateAddTrainingUser(filter: UserFilter!, data: TrainingInput!): User
+  updateAddExerciseTrainingUser(filterUser: UserFilter!, filterTraining: TrainingFilter!, data: ExerciseInput): User
   createTraining(data: TrainingInput!): Training
 }
