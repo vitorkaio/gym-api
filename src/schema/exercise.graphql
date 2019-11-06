@@ -1,4 +1,5 @@
 type Exercise {
+  id: ID!
   number: Int!
   exercise: String!
   weight: Int!

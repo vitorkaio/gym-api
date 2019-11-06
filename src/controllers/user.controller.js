@@ -77,19 +77,33 @@ export const updateAddTrainingUser = async (filter, data) => {
 // Add one exercise in specific training exists
 export const updateAddExerciseTrainingUser = async (filterUser, filterTraining, data) => {
   try {
+    const { id: userId } = filterUser
+    const { id: trainingId } = filterTraining
+    const ops = {runValidators: true, new: true}
+    const res = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$push: {'trainings.$.exercises': data}}, ops)
+    return res
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
+// removeTrainingUser
+export const removeTrainingUser = async (filterUser, filterTraining) => {
+  try {
     const user = await findUser(filterUser)
     if (user) {
-      const { id } = filterTraining
+      const { id: idTraining } = filterTraining
       for (let cont = 0; cont < user.trainings.length; cont++) {
-        if (user.trainings[cont]._id.equals(id)) {
-          user.trainings[cont].exercises.push(data)
+        if (user.trainings[cont]._id.equals(idTraining)) {
+          user.trainings.splice(cont, 1)
           return updaterUser(user._id, user)
         }
       }
-    } 
-    else return null 
+    }
   } 
   catch (error) {
-    
+    throw new Error(error.message)
   }
 }

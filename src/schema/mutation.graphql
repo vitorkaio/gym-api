@@ -1,6 +1,17 @@
 type Mutation {
+
+  # Create new user
   createUser(data: UserInput!): User
+
+  # Add a training for one specific user
   updateAddTrainingUser(filter: UserFilter!, data: TrainingInput!): User
+
+  # Remove one training for specific user
+  removeTrainingUser(filter: UserFilter!, filterTraining: TrainingFilter!): User
+  
+  # Add one exercise in specific training exists
   updateAddExerciseTrainingUser(filterUser: UserFilter!, filterTraining: TrainingFilter!, data: ExerciseInput): User
+
+  # Create a new template training
   createTraining(data: TrainingInput!): Training
 }
