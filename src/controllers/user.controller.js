@@ -80,8 +80,45 @@ export const updateAddExerciseTrainingUser = async (filterUser, filterTraining, 
     const { id: userId } = filterUser
     const { id: trainingId } = filterTraining
     const ops = {runValidators: true, new: true}
-    const res = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$push: {'trainings.$.exercises': data}}, ops)
-    return res
+    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$push: {'trainings.$.exercises': data}}, ops)
+    return user
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
+// Remove a exercise from training for specific user
+export const updateRemoveExerciseTrainingUser = async (filterUser, filterTraining, filterExercise ) => {
+  try {
+    const { id: userId } = filterUser
+    const { id: trainingId } = filterTraining
+    const { id: exerciseId } = filterExercise
+    const ops = {runValidators: true, new: true}
+    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$pull: {'trainings.$.exercises': {'_id': exerciseId}}}, ops)
+    return user
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
+// Edit a exercise from training specific user
+export const updateEditExerciseTrainingUser = async (filterUser, filterTraining, filterExercise, data) => {
+  try {
+    const { id: userId } = filterUser
+    const { id: trainingId } = filterTraining
+    const { id: exerciseId } = filterExercise
+    // const ops = {runValidators: true, new: true}
+    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}, {'trainings.exercises._id': exerciseId}]}, {$set: {'trainings.$[outer].exercises.$[inner].exercise': data['exercise']}},
+    { runValidators: true, new: true, arrayFilters: [
+      { "outer._id": trainingId },
+      { "inner._id": exerciseId }
+  ] })
+    console.log(user)
+    return user
   } 
   catch (error) {
     throw new Error(error.message)
@@ -92,16 +129,10 @@ export const updateAddExerciseTrainingUser = async (filterUser, filterTraining, 
 // removeTrainingUser
 export const removeTrainingUser = async (filterUser, filterTraining) => {
   try {
-    const user = await findUser(filterUser)
-    if (user) {
-      const { id: idTraining } = filterTraining
-      for (let cont = 0; cont < user.trainings.length; cont++) {
-        if (user.trainings[cont]._id.equals(idTraining)) {
-          user.trainings.splice(cont, 1)
-          return updaterUser(user._id, user)
-        }
-      }
-    }
+    const { id: userId } = filterUser
+    const { id: trainingId } = filterTraining
+    const user = await User.findOneAndDelete({$and: [{'_id': userId}, {'trainings._id': trainingId}]})
+    return user
   } 
   catch (error) {
     throw new Error(error.message)

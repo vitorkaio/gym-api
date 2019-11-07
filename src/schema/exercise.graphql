@@ -16,3 +16,7 @@ input ExerciseInput {
   time: Int
   obs: String
 }
+
+input ExerciseFilter {
+  id: ID
+}
