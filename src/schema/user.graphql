@@ -2,7 +2,7 @@ type User {
   id: ID!
   username: String!
   perfil: String!
-  create_data: String!
+  create_at: String!
   trainings: [Training]
 }
 

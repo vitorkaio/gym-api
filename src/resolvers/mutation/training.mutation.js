@@ -1,9 +1,25 @@
 import * as TrainingController from '../../controllers/training.controller'
 
-const User = {
+const Training = {
   async createTraining(_, { data }) {
     return TrainingController.createTraining({...data})
-  }
+  },
+
+   // Add one exercise in specific training exists
+   async updateAddExerciseTraining(_, { filterTraining, data }) {
+    return TrainingController.updateAddExerciseTraining(filterTraining, data)
+  },
+
+  // Edit a exercise from training specific user
+  async updateEditExerciseTraining(_, { filterTraining, filterExercise, data }) {
+    return TrainingController.updateEditExerciseTraining(filterTraining, filterExercise, data)
+  },
+
+  // Remove a exercise from training for specific user
+  async updateRemoveExerciseTraining(_, { filterTraining, filterExercise }) {
+    return TrainingController.updateRemoveExerciseTraining(filterTraining, filterExercise)
+  },
+
 }
 
-export default User
+export default Training

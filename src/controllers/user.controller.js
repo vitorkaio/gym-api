@@ -1,10 +1,14 @@
 import User from '../models/user.model'
+import * as TrainingController from './training.controller'
+import { Types } from 'mongoose'
 import { cryptPassword } from '../services/services'
+
+const ObjectId = Types.ObjectId;
 
 // Return all users
 export const getUsers = async () => {
   try {
-    const res = await User.find({})
+    const res = await User.find({}).populate('trainings')
     return res  
   } 
   catch (error) {
@@ -49,7 +53,7 @@ export const findUser = async (filter) => {
 export const updaterUser = async (id, data) => {
   try {
     const ops = {runValidators: true, new: true}
-    const res = await User.findByIdAndUpdate(id, data, ops)
+    const res = await User.findByIdAndUpdate(id, data, ops).populate('trainings')
     return res  
   } 
   catch (error) {
@@ -61,64 +65,13 @@ export const updaterUser = async (id, data) => {
 // Add a training for one specific user
 export const updateAddTrainingUser = async (filter, data) => {
   try {
+    const res = await TrainingController.createTraining(data)
     const user = await findUser(filter)
     if (user) {
-      user.trainings.push(data) 
+      user.trainings.push(res._id) 
       return updaterUser(user._id, user)
     }
     else return null
-  } 
-  catch (error) {
-    throw new Error(error.message)
-  }
-}
-
-
-// Add one exercise in specific training exists
-export const updateAddExerciseTrainingUser = async (filterUser, filterTraining, data) => {
-  try {
-    const { id: userId } = filterUser
-    const { id: trainingId } = filterTraining
-    const ops = {runValidators: true, new: true}
-    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$push: {'trainings.$.exercises': data}}, ops)
-    return user
-  } 
-  catch (error) {
-    throw new Error(error.message)
-  }
-}
-
-
-// Remove a exercise from training for specific user
-export const updateRemoveExerciseTrainingUser = async (filterUser, filterTraining, filterExercise ) => {
-  try {
-    const { id: userId } = filterUser
-    const { id: trainingId } = filterTraining
-    const { id: exerciseId } = filterExercise
-    const ops = {runValidators: true, new: true}
-    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}]}, {$pull: {'trainings.$.exercises': {'_id': exerciseId}}}, ops)
-    return user
-  } 
-  catch (error) {
-    throw new Error(error.message)
-  }
-}
-
-
-// Edit a exercise from training specific user
-export const updateEditExerciseTrainingUser = async (filterUser, filterTraining, filterExercise, data) => {
-  try {
-    const { id: userId } = filterUser
-    const { id: trainingId } = filterTraining
-    const { id: exerciseId } = filterExercise
-    // const ops = {runValidators: true, new: true}
-    const user = await User.findOneAndUpdate({$and: [{'_id': userId}, {'trainings._id': trainingId}, {'trainings.exercises._id': exerciseId}]}, {$set: {'trainings.$[outer].exercises.$[inner].exercise': data['exercise']}},
-    { runValidators: true, new: true, arrayFilters: [
-      { "outer._id": trainingId },
-      { "inner._id": exerciseId }
-  ] })
-    console.log(user)
-    return user
   } 
   catch (error) {
     throw new Error(error.message)
@@ -131,10 +84,12 @@ export const removeTrainingUser = async (filterUser, filterTraining) => {
   try {
     const { id: userId } = filterUser
     const { id: trainingId } = filterTraining
-    const user = await User.findOneAndDelete({$and: [{'_id': userId}, {'trainings._id': trainingId}]})
+    const ops = {runValidators: true, new: true}
+    const user = await User.findOneAndUpdate({_id: userId}, {$pull: {trainings: {$in: [trainingId]}}}, ops).populate('trainings')
     return user
   } 
   catch (error) {
     throw new Error(error.message)
   }
 }
+

@@ -16,21 +16,6 @@ const User = {
     return UserController.removeTrainingUser(filterUser, filterTraining)
   },
 
-  // Add one exercise in specific training exists
-  async updateAddExerciseTrainingUser(_, { filterUser, filterTraining, data }) {
-    return UserController.updateAddExerciseTrainingUser(filterUser, filterTraining, data)
-  },
-
-  // Remove a exercise from training for specific user
-  async updateRemoveExerciseTrainingUser(_, { filterUser, filterTraining, filterExercise }) {
-    return UserController.updateRemoveExerciseTrainingUser(filterUser, filterTraining, filterExercise)
-  },
-
-  // Edit a exercise from training specific user
-  async updateEditExerciseTrainingUser(_, { filterUser, filterTraining, filterExercise, data }) {
-    return UserController.updateEditExerciseTrainingUser(filterUser, filterTraining, filterExercise, data)
-  }
-
 }
 
 export default User

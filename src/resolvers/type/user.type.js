@@ -1,5 +1,5 @@
 export default {
-	async create_data({ create_data: date }) {
+	async create_at({ create_at: date }) {
 		return date.toLocaleString()
 	}
 	// async perfis(user) {

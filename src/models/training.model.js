@@ -31,7 +31,7 @@ const TrainingSchema = new mongoose.Schema({
     type: [exerciseSchema], // array de objetos do tipo menuSchema
     default: []
   },
-  create_data: {
+  create_at: {
     type: Date,
     default: Date.now()
   },

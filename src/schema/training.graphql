@@ -2,7 +2,7 @@ type Training {
   id: ID!
   name: String!
   exercises: [Exercise]
-  create_data: String!
+  create_at: String!
 }
 
 input TrainingInput {
