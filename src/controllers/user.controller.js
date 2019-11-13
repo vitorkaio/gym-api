@@ -33,6 +33,19 @@ export const createUser = async (data) => {
 }
 
 
+// Remove user
+export const removeUser = async (filter) => {
+  try {
+    const { id } = filter
+    const user = await User.findByIdAndDelete(id)
+    return user
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  } 
+}
+
+
 // Search and returno user by filter passed
 export const findUser = async (filter) => {
   const { id } = filter
@@ -60,6 +73,18 @@ export const updaterUser = async (id, data) => {
     throw new Error(error.message)
   }
 }
+
+
+  // Edit user
+  export const updateEditUser = async (filter, data) => {
+    try {
+      const { id } = filter
+      return updaterUser(id, data)
+    } 
+    catch (error) {
+      throw new Error(error.message)
+    } 
+  }
 
 
 // Add a training for one specific user

@@ -5,6 +5,16 @@ const Training = {
     return TrainingController.createTraining({...data})
   },
 
+  // Delete a training
+  async removeTraining(_, { filterTraining }) {
+    return TrainingController.removeTraining(filterTraining)
+  },
+
+  // Edit a training
+  async updateEditTraining(_, { filterTraining, data } ) {
+    return TrainingController.updateEditTraining(filterTraining, data)
+  },
+
    // Add one exercise in specific training exists
    async updateAddExerciseTraining(_, { filterTraining, data }) {
     return TrainingController.updateAddExerciseTraining(filterTraining, data)

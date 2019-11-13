@@ -5,6 +5,16 @@ const User = {
   async createUser(_, { data }) {
     return UserController.createUser({...data})
   },
+
+  // Remove user
+  async removeUser(_, { filter }) {
+    return UserController.removeUser(filter)
+  },
+
+  // Edit user
+  async updateEditUser(_, { filter, data }) {
+    return UserController.updateEditUser(filter, data)
+  },
   
   // Add a training for one specific user
   async updateAddTrainingUser(_, { filter, data }) {

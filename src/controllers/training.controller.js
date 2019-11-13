@@ -24,6 +24,34 @@ export const createTraining = async (data) => {
 }
 
 
+// Remove a training
+export const removeTraining = async (filterTraining) => {
+  try {
+   const { id: trainingId } = filterTraining
+   const training = await Training.findByIdAndDelete(trainingId)
+   console.log(training)
+   return training 
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
+// Edit a training
+export const updateEditTraining = async (filterTraining, data) => {
+  try {
+   const { id: trainingId } = filterTraining
+   const ops = {runValidators: true, new: true}
+   const training = await Training.findByIdAndUpdate(trainingId, data, ops)
+   return training 
+  } 
+  catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+
 // Add one exercise in training
 export const updateAddExerciseTraining = async (filterTraining, newExercise) => {
   try {
