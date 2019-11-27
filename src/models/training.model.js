@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose'
 
 // Schema que será utilizado dentro de outro Schema.
 const exerciseSchema = new mongoose.Schema({
-  number: {
+  series: {
     type: Number,
   },
   exercise: {

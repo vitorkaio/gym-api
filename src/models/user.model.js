@@ -17,6 +17,18 @@ const userSchema = new mongoose.Schema({
   perfil: {
     type: String,
     enum: ['adm', 'student'],
+    default: 'student'
+  },
+  info: {
+    name: {
+      type: String
+    },
+    age: {
+      type: Number
+    },
+    gender: {
+      type: String
+    }
   },
   trainings: [{
     type: mongoose.Schema.Types.ObjectId,

@@ -1,9 +1,22 @@
+type Info {
+  name: String
+  age: Int
+  gender: String
+}
+
+input InfoInput {
+  name: String
+  age: Int
+  gender: String
+}
+
 type User {
   id: ID!
   username: String!
   perfil: String!
   create_at: String!
   trainings: [Training]
+  info: Info
 }
 
 input UserInput {
@@ -11,6 +24,7 @@ input UserInput {
 	password: String
   perfil: String
   trainings: [ID]
+  info: InfoInput
 }
 
 input UserFilter {

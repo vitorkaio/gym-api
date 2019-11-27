@@ -9,6 +9,7 @@ const ObjectId = Types.ObjectId;
 export const getUsers = async () => {
   try {
     const res = await User.find({}).populate('trainings')
+    console.log('GET users')
     return res  
   } 
   catch (error) {
