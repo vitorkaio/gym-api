@@ -25,8 +25,12 @@ export const createUser = async (data) => {
       ...data,
       password: await cryptPassword(data.password)
     }
-    const res = await User.create(newUser)
-    return res
+    const user = await User.create(newUser)
+    
+    if (!user)
+      throw('Não foi possível adicionar o usuário')
+      
+    return getUsers()
   } 
   catch (error) {
     throw new Error(error.message)

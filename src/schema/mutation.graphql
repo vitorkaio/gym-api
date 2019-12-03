@@ -1,7 +1,7 @@
 type Mutation {
 
   # Create new user
-  createUser(data: UserInput!): User
+  createUser(data: UserInput!): [User]
 
   # Edit user
   updateEditUser(filter: UserFilter!, data: UserInput): User
