@@ -39,7 +39,11 @@ export const removeUser = async (filter) => {
   try {
     const { id } = filter
     const user = await User.findByIdAndDelete(id)
-    return user
+
+    if (!user)
+      throw('Não foi possível remove o usuário')
+      
+    return getUsers()
   } 
   catch (error) {
     throw new Error(error.message)
