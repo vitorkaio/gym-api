@@ -103,7 +103,8 @@ export const updateAddTrainingUser = async (filter, data) => {
     const user = await findUser(filter)
     if (user) {
       user.trainings.push(res._id) 
-      return updaterUser(user._id, user)
+      await updaterUser(user._id, user)
+      return getUsers()
     }
     else return null
   } 

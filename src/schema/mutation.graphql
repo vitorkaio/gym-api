@@ -10,7 +10,7 @@ type Mutation {
   removeUser(filter: UserFilter!): [User]
 
   # Add a training for one specific user
-  updateAddTrainingUser(filter: UserFilter!, data: TrainingInput!): User
+  updateAddTrainingUser(filter: UserFilter!, data: TrainingInput!): [User]
 
   # Remove one training for specific user
   removeTrainingUser(filterUser: UserFilter!, filterTraining: TrainingFilter!): User
