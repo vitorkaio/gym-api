@@ -24,13 +24,4 @@ router.patch('/:idTraining/edit/exercise/:idExercise', TrainingResolver.updateEd
 // Remove um exercício de um treino
 router.patch('/:idTraining/remove/exercise/:idExercise', TrainingResolver.updateRemoveExerciseTraining)
 
-/* router.get('/:id', CarsResolver.getCar)
-router.post('/', CarsResolver.createCar)
-router.delete('/:id', CarsResolver.deleteCar)
-
-// Rotas com operações pela placa(read, delete and update)
-router.get('/board/:board', CarsResolver.getCar)
-router.delete('/board/:board', CarsResolver.deleteCar)
-router.patch('/board/:board', CarsResolver.updateCar) */
-
 export default router

@@ -1,7 +1,7 @@
 import User from './user.model'
-// import * as TrainingController from './training.controller'
+import * as TrainingController from '../training/training.controller'
 // import { Types } from 'mongoose'
-// import { cryptPassword } from '../services/services'
+import { cryptPassword } from '../../services/services'
 
 // const ObjectId = Types.ObjectId
 
@@ -9,14 +9,13 @@ import User from './user.model'
 export const getUsers = async () => {
   try {
     const res = await User.find({}, { password: 0 }).populate('trainings')
-    console.log('GET users')
     return res
   } catch (error) {
     throw (error.message)
   }
 }
 
-/* // Create new user
+// Create new user
 export const createUser = async (data) => {
   try {
     const newUser = {
@@ -24,42 +23,44 @@ export const createUser = async (data) => {
       password: await cryptPassword(data.password)
     }
     const user = await User.create(newUser)
-    if (!user) {
-      throw new Error(null)
-    }
-    return getUsers()
-  } catch (error) {
-    throw (error.message)
-  }
-}
-
-// Remove user
-export const removeUser = async (filter) => {
-  try {
-    const { id } = filter
-    const user = await User.findByIdAndDelete(id)
-
-    if (!user) {
-      throw new Error(null)
-    }
+    user.password = undefined
     return user
   } catch (error) {
     throw (error.message)
   }
 }
 
+// Remove user
+export const removeUser = async (id) => {
+  try {
+    const user = await User.findByIdAndDelete(id)
+    if (user) {
+      user.password = undefined
+      return user
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
+  }
+}
+
 // Search and return user by filter passed
-export const findUser = async (filter) => {
-  const { id } = filter
+export const findUser = async (id) => {
   if (id) {
     try {
-      const res = await User.findById(id)
-      return res
+      const user = await User.findById(id)
+      if (user) {
+        user.password = undefined
+        return user
+      } else {
+        throw new Error(null)
+      }
     } catch (error) {
       throw (error.message)
     }
   } else {
-    return null
+    throw new Error(null)
   }
 }
 
@@ -67,34 +68,33 @@ export const findUser = async (filter) => {
 export const updaterUser = async (id, data) => {
   try {
     const ops = { runValidators: true, new: true }
-    const res = await User.findByIdAndUpdate(id, data, ops).populate('trainings')
-    return res
-  } catch (error) {
-    throw (error.message)
-  }
-}
-
-// Edit user
-export const updateEditUser = async (filter, data) => {
-  try {
-    const { id } = filter
-    return updaterUser(id, data)
+    const { password } = data
+    if (password) {
+      data.password = await cryptPassword(data.password)
+    }
+    const user = await User.findByIdAndUpdate(id, data, ops).populate('trainings')
+    if (user) {
+      user.password = undefined
+      return user
+    } else {
+      throw new Error(null)
+    }
   } catch (error) {
     throw (error.message)
   }
 }
 
 // Add a training for one specific user
-export const updateAddTrainingUser = async (filter, data) => {
+export const updateAddTrainingUser = async (id, data) => {
   try {
-    const res = await TrainingController.createTraining(data)
-    const user = await findUser(filter)
+    const training = await TrainingController.createTraining(data)
+    const user = await findUser(id)
     if (user) {
-      user.trainings.push(res._id)
-      await updaterUser(user._id, user)
-      return getUsers()
+      user.trainings.push(training._id)
+      const res = await updaterUser(user._id, user)
+      return res
     } else {
-      return null
+      throw new Error(null)
     }
   } catch (error) {
     throw (error.message)
@@ -102,14 +102,17 @@ export const updateAddTrainingUser = async (filter, data) => {
 }
 
 // removeTrainingUser
-export const removeTrainingUser = async (filterUser, filterTraining) => {
+export const removeTrainingUser = async (userId, trainingId) => {
   try {
-    const { id: userId } = filterUser
-    const { id: trainingId } = filterTraining
     const ops = { runValidators: true, new: true }
     const user = await User.findOneAndUpdate({ _id: userId }, { $pull: { trainings: { $in: [trainingId] } } }, ops).populate('trainings')
-    return user
+    if (user) {
+      user.password = undefined
+      return user
+    } else {
+      throw new Error(null)
+    }
   } catch (error) {
     throw (error.message)
   }
-} */
+}

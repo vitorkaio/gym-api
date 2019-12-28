@@ -5,14 +5,20 @@ const router = express.Router()
 
 // GET /feed/posts
 router.get('/', UserResolver.getUsers)
-/* router.get('/:id', CarsResolver.getCar)
-router.post('/', CarsResolver.createCar)
-router.delete('/:id', CarsResolver.deleteCar)
-router.patch('/:id', CarsResolver.updateCar)
 
-// Rotas com operações pela placa(read, delete and update)
-router.get('/board/:board', CarsResolver.getCar)
-router.delete('/board/:board', CarsResolver.deleteCar)
-router.patch('/board/:board', CarsResolver.updateCar) */
+// Cria um novo usuário
+router.post('/', UserResolver.createuser)
+
+// Remove um usuário
+router.delete('/:id', UserResolver.removeUser)
+
+// Atualiza as informações de um usuário
+router.patch('/:id', UserResolver.updateUser)
+
+// Adiciona um treino ao usuário
+router.patch('/:id/add/training', UserResolver.updateAddTrainingUser)
+
+// Remove um treino do usuário
+router.patch('/:userId/remove/training/:trainingId', UserResolver.removeTrainingUser)
 
 export default router
