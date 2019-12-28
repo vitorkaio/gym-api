@@ -1,4 +1,0 @@
-type Subscription {
-   userAdded: User
- }
- 

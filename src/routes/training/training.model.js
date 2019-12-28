@@ -3,24 +3,24 @@ import * as mongoose from 'mongoose'
 // Schema que será utilizado dentro de outro Schema.
 const exerciseSchema = new mongoose.Schema({
   number: {
-    type: Number,
+    type: Number
   },
   exercise: {
-    type: String,
+    type: String
   },
   weight: {
-    type: Number,
+    type: Number
   },
   repetitions: {
-    type: Number,
+    type: Number
   },
   time: {
-    type: Number,
+    type: Number
   },
   obs: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
 const TrainingSchema = new mongoose.Schema({
   name: {
@@ -34,7 +34,7 @@ const TrainingSchema = new mongoose.Schema({
   create_at: {
     type: Date,
     default: Date.now()
-  },
+  }
 })
 
 export default mongoose.model('Training', TrainingSchema)

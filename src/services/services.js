@@ -8,5 +8,5 @@ export const cryptPassword = async (pass) => {
 }
 
 export const compare = async (pass1, pass2) => {
-  return await bcrypt.compare(pass1, pass2)
+  return bcrypt.compare(pass1, pass2)
 }
