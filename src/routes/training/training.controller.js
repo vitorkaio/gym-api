@@ -20,70 +20,78 @@ export const createTraining = async (data) => {
   }
 }
 
-/*
 // Remove a training
-export const removeTraining = async (filterTraining) => {
+export const removeTraining = async (id) => {
   try {
-   const { id: trainingId } = filterTraining
-   const training = await Training.findByIdAndDelete(trainingId)
-   console.log(training)
-   return training
-  }
-  catch (error) {
-    throw new Error(error.message)
+    const training = await Training.findByIdAndDelete(id)
+    if (training) {
+      return training
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
   }
 }
 
 // Edit a training
-export const updateEditTraining = async (filterTraining, data) => {
+export const updateEditTraining = async (id, data) => {
   try {
-   const { id: trainingId } = filterTraining
-   const ops = {runValidators: true, new: true}
-   const training = await Training.findByIdAndUpdate(trainingId, data, ops)
-   return training
-  }
-  catch (error) {
-    throw new Error(error.message)
+    const ops = { runValidators: true, new: true }
+    const training = await Training.findByIdAndUpdate(id, data, ops)
+    if (training) {
+      return training
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
   }
 }
 
 // Add one exercise in training
-export const updateAddExerciseTraining = async (filterTraining, newExercise) => {
+export const updateAddExerciseTraining = async (id, newExercise) => {
   try {
-    const { id: trainingId } = filterTraining
-    const ops = {runValidators: true, new: true}
-    const training = await Training.findOneAndUpdate({_id: trainingId}, {$push: {'exercises': newExercise}}, ops)
-    return training
-  }
-  catch (error) {
-    throw new Error(error.message)
+    const ops = { runValidators: true, new: true }
+    const training = await Training.findOneAndUpdate({ _id: id }, { $push: { exercises: newExercise } }, ops)
+    if (training) {
+      return training
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
   }
 }
 
 // Edit a exercise in training specific
-export const updateEditExerciseTraining = async (filterTraining, filterExercise, data) => {
+export const updateEditExerciseTraining = async (idTraining, idExercise, data) => {
   try {
-    const { id: trainingId } = filterTraining
-    const { id: exerciseId } = filterExercise
-    const ops = {runValidators: true, new: true}
-    const training = await Training.findOneAndUpdate({$and: [{_id: trainingId}, {'exercises._id':  exerciseId}]}, {$set: {'exercises.$': data}}, ops)
-    return training
-  }
-  catch (error) {
-    throw new Error(error.message)
+    const ops = { runValidators: true, new: true }
+    const training = await Training.findOneAndUpdate({
+      $and: [{ _id: idTraining }, { 'exercises._id': idExercise }]
+    }, { $set: { 'exercises.$': data } }, ops)
+    if (training) {
+      return training
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
   }
 }
 
 // Remove a exercise from training for specific user
-export const updateRemoveExerciseTraining = async (filterTraining, filterExercise ) => {
+export const updateRemoveExerciseTraining = async (idTraining, idExercise) => {
   try {
-    const { id: trainingId } = filterTraining
-    const { id: exerciseId } = filterExercise
-    const ops = {runValidators: true, new: true}
-    const training = await Training.findOneAndUpdate({_id: trainingId}, {$pull: {'exercises': {_id: exerciseId}}}, ops)
-    return training
+    const ops = { runValidators: true, new: true }
+    const training = await Training.findOneAndUpdate({ _id: idTraining }, { $pull: { exercises: { _id: idExercise } } }, ops)
+    if (training) {
+      return training
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
   }
-  catch (error) {
-    throw new Error(error.message)
-  }
-} */
+}
