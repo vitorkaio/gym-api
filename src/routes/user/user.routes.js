@@ -6,6 +6,9 @@ const router = express.Router()
 // GET /feed/posts
 router.get('/', UserResolver.getUsers)
 
+// Pega um usuário
+router.get('/:id', UserResolver.getUser)
+
 // Cria um novo usuário
 router.post('/', UserResolver.createuser)
 

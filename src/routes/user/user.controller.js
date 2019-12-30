@@ -15,6 +15,20 @@ export const getUsers = async () => {
   }
 }
 
+// Retorna um usuário
+export const getUser = async (id) => {
+  try {
+    const user = await User.findOne(id, { password: 0 }).populate('trainings')
+    if (user) {
+      return user
+    } else {
+      throw new Error(null)
+    }
+  } catch (error) {
+    throw (error.message)
+  }
+}
+
 // Create new user
 export const createUser = async (data) => {
   try {
