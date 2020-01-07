@@ -25,7 +25,7 @@ export const ResponseFail = (res, code, err) => {
 
 // Gerencia as mensagens de erros
 export const ResponseErrors = async (res, err) => {
-  if (err === null) ResponseFail(res, codes.NOT_FOUND, messages.NOT_FOUND)
+  if (err === null) ResponseFail(res, codes.NOT_FOUND, null)
   else if (err.name === 'CastError') ResponseFail(res, codes.ERROR, messages.CAST_ID)
   else if (err.name === 'MongoError' && err.code === 11000) ResponseFail(res, codes.ERROR, err.errmsg)
   else ResponseFail(res, codes.ERROR, err)

@@ -9,6 +9,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import UserRoutes from './routes/user/user.routes'
 import TrainingRoutes from './routes/training/training.routes'
+import AuthRoutes from './routes/auth/auth.routes'
 
 const app = express()
 
@@ -36,6 +37,7 @@ mongoose.connect(`${config.mongoUrl}`, {
 // Routes
 app.use('/users', UserRoutes)
 app.use('/trainings', TrainingRoutes)
+app.use('/auth', AuthRoutes)
 
 // middleware para erros.
 app.use((_, __, next) => {

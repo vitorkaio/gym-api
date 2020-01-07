@@ -18,11 +18,12 @@ export const getUsers = async () => {
 // Retorna um usuário
 export const getUser = async (id) => {
   try {
-    const user = await User.findOne(id, { password: 0 }).populate('trainings')
+    const user = await User.findById(id, { password: 0 }).populate('trainings')
     if (user) {
       return user
     } else {
-      throw new Error(null)
+      const message = { message: user }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -52,7 +53,8 @@ export const removeUser = async (id) => {
       user.password = undefined
       return user
     } else {
-      throw new Error(null)
+      const message = { message: user }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -68,13 +70,15 @@ export const findUser = async (id) => {
         user.password = undefined
         return user
       } else {
-        throw new Error(null)
+        const message = { message: user }
+        throw (message)
       }
     } catch (error) {
       throw (error.message)
     }
   } else {
-    throw new Error(null)
+    const message = { message: null }
+    throw (message)
   }
 }
 
@@ -91,7 +95,8 @@ export const updaterUser = async (id, data) => {
       user.password = undefined
       return user
     } else {
-      throw new Error(null)
+      const message = { message: user }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -108,7 +113,8 @@ export const updateAddTrainingUser = async (id, data) => {
       const res = await updaterUser(user._id, user)
       return res
     } else {
-      throw new Error(null)
+      const message = { message: user }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -124,7 +130,8 @@ export const removeTrainingUser = async (userId, trainingId) => {
       user.password = undefined
       return user
     } else {
-      throw new Error(null)
+      const message = { message: user }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)

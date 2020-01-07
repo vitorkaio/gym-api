@@ -16,7 +16,7 @@ export const getUsers = async (_, res) => {
 // Retorna um usuário
 export const getUser = async (req, res) => {
   try {
-    const { id } = req.params.id
+    const id = req.params.id
     const result = await UserController.getUser(id)
     ResponseSuccess(res, codes.OK, result)
   } catch (error) {

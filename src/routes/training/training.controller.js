@@ -27,7 +27,8 @@ export const removeTraining = async (id) => {
     if (training) {
       return training
     } else {
-      throw new Error(null)
+      const message = { message: training }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -42,7 +43,8 @@ export const updateEditTraining = async (id, data) => {
     if (training) {
       return training
     } else {
-      throw new Error(null)
+      const message = { message: training }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -57,7 +59,8 @@ export const updateAddExerciseTraining = async (id, newExercise) => {
     if (training) {
       return training
     } else {
-      throw new Error(null)
+      const message = { message: training }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -74,7 +77,8 @@ export const updateEditExerciseTraining = async (idTraining, idExercise, data) =
     if (training) {
       return training
     } else {
-      throw new Error(null)
+      const message = { message: training }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
@@ -89,7 +93,8 @@ export const updateRemoveExerciseTraining = async (idTraining, idExercise) => {
     if (training) {
       return training
     } else {
-      throw new Error(null)
+      const message = { message: training }
+      throw (message)
     }
   } catch (error) {
     throw (error.message)
