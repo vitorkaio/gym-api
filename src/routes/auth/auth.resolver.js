@@ -12,3 +12,14 @@ export const login = async (req, res) => {
     ResponseErrors(res, error)
   }
 }
+
+// login adm
+export const loginAdm = async (req, res) => {
+  try {
+    const data = req.body
+    const result = await AuthController.loginAdm(data)
+    ResponseSuccess(res, codes.OK, result)
+  } catch (error) {
+    ResponseErrors(res, error)
+  }
+}

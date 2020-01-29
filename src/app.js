@@ -28,7 +28,13 @@ mongoose.connect(`${config.mongoUrl}`, {
   useFindAndModify: false,
   useCreateIndex: true,
   useUnifiedTopology: true
-}).then(_ => console.log('mongoconnect')).catch(err => { console.log(err) })
+}).then(_ => {
+  console.log('mongoconnect')
+  const port = config.port
+  app.listen(port, () => {
+    console.log('App listening on port ' + port)
+  })
+}).catch(err => { console.log(err) })
 
 /* const close = () => {
   mongoose.connection.close()
@@ -57,7 +63,7 @@ app.use((error, _, res, __) => {
 // const erros: Fails = new Fails()
 // app.use(erros.errorsStatus)
 
-const port = config.port
+/* const port = config.port
 app.listen(port, () => {
   console.log('App listening on port ' + port)
-})
+}) */
