@@ -1,6 +1,12 @@
-import * as mongoose from 'mongoose'
+/* eslint-disable @typescript-eslint/camelcase */
+import { Document, Schema, Model, model } from 'mongoose'
+import { UserInterface } from './user.interface'
 
-const userSchema = new mongoose.Schema({
+export interface UserModel extends UserInterface, Document {
+
+}
+
+const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
@@ -31,10 +37,10 @@ const userSchema = new mongoose.Schema({
     }
   },
   trainings: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Training', // Referência a coleção Perfil
     default: []
   }]
 })
 
-export default mongoose.model('User', userSchema)
+export const User: Model<UserModel> = model<UserModel>('User', userSchema)

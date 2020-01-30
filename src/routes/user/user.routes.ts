@@ -1,5 +1,5 @@
 import express from 'express'
-import * as UserResolver from './user.resolver'
+import UserResolver from './user.resolver'
 
 const router = express.Router()
 

@@ -1,9 +1,8 @@
 import express from 'express'
-import * as TrainingResolver from './training.resolver'
+import TrainingResolver from './training.resolver'
 
 const router = express.Router()
 
-// GET /feed/posts
 router.get('/', TrainingResolver.getTrainings)
 
 // Cria um novo treino
